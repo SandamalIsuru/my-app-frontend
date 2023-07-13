@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import AppRoutes from './config/Routes';
-import { light } from './themes';
-import { applyTheme } from './themes/utils';
+import React, { useEffect } from "react";
+import { AppContextProvider } from "./appContexts";
+import AppRoutes from "./config/Routes";
+import { light } from "./themes";
+import { applyTheme } from "./themes/utils";
 
 function App() {
   useEffect(() => {
@@ -9,7 +10,9 @@ function App() {
   }, []);
 
   return (
-    <AppRoutes />
+    <AppContextProvider>
+      <AppRoutes />
+    </AppContextProvider>
   );
 }
 
