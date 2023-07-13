@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import CircularSpinner from './CircularSpinner';
 import { AppContext } from '../../appContexts';
 import backgroundImage from '../../assets/images/background.jpeg';
+import Logo from './Logo';
 
 const PageWrapper = ({ className, content, isLoading }) => {
   const { setPopup } = useContext(AppContext);
@@ -28,7 +29,12 @@ const PageWrapper = ({ className, content, isLoading }) => {
     setPopup(popup);
   }, [isLoading, setPopup]);
 
-  return <div className={classNames(className, 'h-screen w-screen')} style={{ backgroundImage: `url(${backgroundImage})` }}>{content}</div>;
+  return <div className={classNames(className, 'h-screen w-screen')} style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className='absolute text-xl h-10 w-32 border-2 border-hoverBackground ml-6 mt-3 '>
+      <Logo />
+    </div>
+    {content}
+    </div>;
 };
 
 export default PageWrapper;
