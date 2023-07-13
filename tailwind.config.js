@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        xxs: '540px',
+        xxs: '440px',
+        // => @media (min-width: 540px) { ... }
+        xs: '540px',
         // => @media (min-width: 540px) { ... }
         sm: '640px',
         // => @media (min-width: 640px) { ... }
@@ -20,6 +22,12 @@ module.exports = {
         secondary: 'var(--theme-secondary)',
         textPrimary: 'var(--theme-text-primary)',
         textSecondary: 'var(--theme-text-secondary)',
+        errorRed: 'var(--theme-error-red)',
+        dividerColor: 'var(--theme-divider-color)',
+        white: 'var(--theme-white)',
+        disableColor: 'var(--theme-disable-color)',
+        textGray: 'var(--theme-text-gray)',
+        hoverBackground: 'var(--theme-hover-background)',
       },
       fontFamily: {
         inter: ['Inter'],
