@@ -5,11 +5,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import PageWrapper from "../../components/common/PageWrapper";
 import PasswordTextInput from "../../components/common/PasswordTextInput";
 import SubmitButton from "../../components/common/SubmitButton";
 import TextInput from "../../components/common/TextInput";
 import { PASSWORD_POLICY } from "../../config/Constants";
+import { auth } from "../../firebase";
+import {
+  setKeepLoggedInInBrowserCookies,
+  setUserAuthInLocalStorage,
+  setUserInLocalStorage,
+} from "../../utils/UserUtill";
+import { mapAuthCodeToMessage } from "../../utils/AuthUtils";
 
 YupPassword(Yup);
 
@@ -22,6 +30,7 @@ const Signin = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const isSignInDisabled = (values, errors) => {
@@ -57,6 +66,26 @@ const Signin = () => {
               validateOnBlur={true}
               onSubmit={async (values, { resetForm }) => {
                 setIsLoading(true);
+                signInWithEmailAndPassword(auth, values.userId, values.password)
+                  .then((useCredentials) => {
+                    setUserInLocalStorage({
+                      uid: useCredentials.user.uid,
+                      email: useCredentials.user.email,
+                    });
+                    setUserAuthInLocalStorage({
+                      accessToken: useCredentials.user.accessToken,
+                      refreshToken: useCredentials._tokenResponse.refreshToken,
+                    });
+                    setKeepLoggedInInBrowserCookies(keepLoggedIn);
+                    setIsLoading(false);
+                    navigate("/my-contacts");
+                  })
+                  .catch((error) => {
+                    console.log("ERROR: ", error);
+                    setIsInvalidCredentials(true);
+                    setErrorText(mapAuthCodeToMessage(error.code));
+                    setIsLoading(false);
+                  });
                 resetForm();
               }}
             >
@@ -161,13 +190,16 @@ const Signin = () => {
                     <span className="text-xs font-normal text-textGray">
                       {"No account? "}
                       <span
-                        className="underline text-xs font-normal text-whiteSmoke cursor-pointer ml-[1px]"
+                        className="underline text-xs font-normal text-textGray underline cursor-pointer ml-[1px]"
                         onClick={onClickSignUp}
                       >
                         {"Register here."}
                       </span>
                     </span>
                   </div>
+                  {isInvalidCredentials && <div className="flex justify-center items-center text-whiteSmoke rounded-md mt-[24px] bg-errorRed py-2 px-6">
+                    {errorText}
+                  </div>}
                 </Form>
               )}
             </Formik>

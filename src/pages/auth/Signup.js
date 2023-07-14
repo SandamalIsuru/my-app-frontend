@@ -5,11 +5,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 import PageWrapper from "../../components/common/PageWrapper";
 import PasswordTextInput from "../../components/common/PasswordTextInput";
 import SubmitButton from "../../components/common/SubmitButton";
 import TextInput from "../../components/common/TextInput";
-import { getPasswordConstraintSchema } from '../../utils/AuthUtils';
+import { getPasswordConstraintSchema } from "../../utils/AuthUtils";
+import {
+  setKeepLoggedInInBrowserCookies,
+  setUserAuthInLocalStorage,
+} from "../../utils/UserUtill";
 
 YupPassword(Yup);
 
@@ -52,13 +58,34 @@ const Signup = () => {
             <Formik
               initialValues={{ userId: "", password: "", confirmPassword: "" }}
               initialErrors={
-                isInvalidCredentials ? { userId: "", password: "", confirmPassword: "" } : {}
+                isInvalidCredentials
+                  ? { userId: "", password: "", confirmPassword: "" }
+                  : {}
               }
               validationSchema={signupSchema}
               validateOnChange={true}
               validateOnBlur={true}
               onSubmit={async (values, { resetForm }) => {
                 setIsLoading(true);
+                createUserWithEmailAndPassword(
+                  auth,
+                  values.userId,
+                  values.password
+                )
+                  .then((useCredentials) => {
+                    setUserAuthInLocalStorage({
+                      accessToken: useCredentials.user.accessToken,
+                      refreshToken: useCredentials._tokenResponse.refreshToken,
+                    });
+                    setKeepLoggedInInBrowserCookies(keepLoggedIn);
+                    setIsLoading(false);
+                    navigate("/my-contacts");
+                  })
+                  .catch((error) => {
+                    console.log("ERROR: ", error);
+                    setIsLoading(false);
+                  });
+                resetForm();
                 resetForm();
               }}
             >
@@ -193,7 +220,7 @@ const Signup = () => {
                     <span className="text-xs font-normal text-textGray">
                       {"Already have an account? "}
                       <span
-                        className="underline text-xs font-normal text-whiteSmoke cursor-pointer ml-[1px]"
+                        className="underline text-xs font-normal text-textGray underline cursor-pointer ml-[1px]"
                         onClick={onClickSignIn}
                       >
                         {"Login here."}
