@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
 import { SIDEBAR_NAVIGATIONS } from "../../../config/Navigation";
+import { clearLocalStorage } from "../../../utils/UserUtill";
 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -29,7 +30,9 @@ function Navbar() {
             {SIDEBAR_NAVIGATIONS.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <Link to={item.path} onClick={() => {
+                    item.path === "/login" && clearLocalStorage();
+                  }}>
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>

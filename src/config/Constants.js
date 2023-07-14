@@ -36,3 +36,18 @@ export const NATIONALITY = [
   { label: "TR", value: 20 },
   { label: "UA", value: 21 },
 ];
+
+export const USER = 'USER';
+
+export const USER_ATTRIBUTES = {
+  EMAIL: 'EMAIL',
+  USERNAME: 'USERNAME',
+};
+
+export const USER_AUTH = 'USER_AUTH';
+
+export const USER_AUTH_ATTRIBUTES = {
+  ID_TOKEN: 'ID_TOKEN',
+  ACCESS_TOKEN: 'ACCESS_TOKEN',
+  REFRESH_TOKEN: 'REFRESH_TOKEN',
+};

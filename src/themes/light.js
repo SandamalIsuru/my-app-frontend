@@ -3,7 +3,7 @@ const light = {
   '--theme-secondary': '#1E1E1E',
   '--theme-text-primary': '#030303',
   '--theme-text-secondary': '#505052',
-  '--theme-error-red': '#C07262',
+  '--theme-error-red': '#f01628',
   '--theme-divider-color': '#2b332c',
   '--theme-white': '#ffffff',
   '--theme-disable-color': '#999999',

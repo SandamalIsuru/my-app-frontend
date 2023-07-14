@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Signup from "../pages/auth/Signup";
 import Signin from "../pages/auth/Signin";
 import MyContacts from "../pages/protected/MyContacts";
@@ -7,6 +13,21 @@ import Layout from "../components/layouts/Layout";
 import AuthLayout from "../components/layouts/AuthLayout";
 import MyProfile from "../pages/protected/MyProfile";
 import EditProfile from "../pages/protected/EditProfile";
+import { getUserAuthAttributeFromLocalStorage } from "../utils/UserUtill";
+import { USER_AUTH_ATTRIBUTES } from "./Constants";
+
+const ProtectedRoute = ({ children }) => {
+  const accessToken = getUserAuthAttributeFromLocalStorage(
+    USER_AUTH_ATTRIBUTES.ACCESS_TOKEN
+  );
+  let location = useLocation();
+
+  if (!accessToken) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+};
 
 const AppRoutes = () => {
   return (
@@ -20,13 +41,34 @@ const AppRoutes = () => {
         </Route>
 
         <Route element={<Layout />}>
-          <Route path="my-contacts" element={<MyContacts />} />
+          <Route
+            path="my-contacts"
+            element={
+              <ProtectedRoute>
+                <MyContacts />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route element={<Layout />}>
-          <Route path="my-Profile" element={<MyProfile />} />
+          <Route
+            path="my-Profile"
+            element={
+              <ProtectedRoute>
+                <MyProfile />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route element={<Layout />}>
-          <Route path="edit-profile" element={<EditProfile />} />
+          <Route
+            path="edit-profile"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
