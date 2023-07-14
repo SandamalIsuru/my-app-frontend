@@ -3,6 +3,7 @@ module.exports = {
   content: ['./src/**/*.{html,js}'],
   theme: {
     extend: {
+      height: ['responsive'],
       screens: {
         xxs: '440px',
         // => @media (min-width: 540px) { ... }
@@ -28,6 +29,10 @@ module.exports = {
         disableColor: 'var(--theme-disable-color)',
         textGray: 'var(--theme-text-gray)',
         hoverBackground: 'var(--theme-hover-background)',
+        textBlue: 'var(--theme-text-blue)',
+        dropdownGray: 'var(--theme-dropdown-gray)',
+        whiteSmoke: 'var(--theme-white-smoke)',
+        borderColor: 'var(--theme-border-color)',
       },
       fontFamily: {
         inter: ['Inter'],

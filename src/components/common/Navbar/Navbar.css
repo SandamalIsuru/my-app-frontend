@@ -12,6 +12,7 @@
   display: flex;
   justify-content: center;
   position: fixed;
+  z-index: 10;
   top: 0;
   right: -100%;
   transition: 850ms;

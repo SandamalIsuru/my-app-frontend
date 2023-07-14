@@ -161,7 +161,7 @@ const Signin = () => {
                     <span className="text-xs font-normal text-textGray">
                       {"No account? "}
                       <span
-                        className="underline text-xs font-normal text-whiteSmoke cursor-pointer"
+                        className="underline text-xs font-normal text-whiteSmoke cursor-pointer ml-[1px]"
                         onClick={onClickSignUp}
                       >
                         {"Register here."}

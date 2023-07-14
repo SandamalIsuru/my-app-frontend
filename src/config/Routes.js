@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "../pages/auth/Signup";
 import Signin from "../pages/auth/Signin";
 import MyContacts from "../pages/protected/MyContacts";
-import Layout from "../components/common/Layout";
-import AuthLayout from "../components/common/AuthLayout";
+import Layout from "../components/layouts/Layout";
+import AuthLayout from "../components/layouts/AuthLayout";
 import MyProfile from "../pages/protected/MyProfile";
 import EditProfile from "../pages/protected/EditProfile";
 

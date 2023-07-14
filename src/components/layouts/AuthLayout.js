@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import Logo from "./Logo";
-import Navbar from "./Navbar/Navbar";
+import Logo from "../common/Logo";
 import backgroundImage from "../../assets/images/background.jpeg";
+import { AppContext } from "../../appContexts";
+import PopupWrapper from "../common/PopupWrapper";
 
 const AuthLayout = () => {
+  const { popup } = useContext(AppContext);
+
   return (
     <div
       className="flex flex-row h-screen w-screen overflow-hidden text-textPrimary"
@@ -14,6 +17,7 @@ const AuthLayout = () => {
         <Logo />
       </div>
       <Outlet />
+      {popup && <PopupWrapper content={<>{popup}</>} />}
     </div>
   );
 };

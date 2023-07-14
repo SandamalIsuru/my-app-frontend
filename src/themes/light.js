@@ -9,6 +9,10 @@ const light = {
   '--theme-disable-color': '#999999',
   '--theme-text-gray': '#777777',
   '--theme-hover-background': '#737373',
+  '--theme-text-blue': '#3689f5',
+  '--theme-dropdown-gray': '#e1e2e3',
+  '--theme-white-smoke': '#F5F5F5',
+  '--theme-border-color': '#202323',
 };
 
 export default light;

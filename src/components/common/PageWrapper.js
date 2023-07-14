@@ -31,7 +31,7 @@ const PageWrapper = ({ className, content, isLoading }) => {
 
   return (
     <div
-      className={classNames(className, "h-screen w-full")}
+      className={classNames(className, "h-full w-full")}
     >
       {content}
       {popup && <PopupWrapper content={<>{popup}</>} />}
