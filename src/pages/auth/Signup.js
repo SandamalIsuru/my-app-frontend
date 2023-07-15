@@ -28,7 +28,7 @@ const signupSchema = Yup.object().shape({
 const Signup = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
+  const [isInvalidCredentials] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const isSignupDisabled = (values, errors) => {

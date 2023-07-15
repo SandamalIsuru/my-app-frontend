@@ -37,7 +37,7 @@ function ImageUpload({ selectedImage, setSelectedImage, url = null }) {
       ) : (
         <div className="dropzone-text">
           <div className="flex justify-center">
-            {!selectedImage && url && <img src={url} alt="Image" />}
+            {!selectedImage && url && <img src={url} alt="profile" />}
             {!selectedImage && !url && <PersonIcon style={{ fontSize: 120 }} />}
           </div>
 

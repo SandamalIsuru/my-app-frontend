@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getUsers } from "../../apis/Api";
 import PageTitle from "../../components/common/PageTitle";
 import PageWrapper from "../../components/common/PageWrapper";
@@ -12,11 +11,10 @@ import Dropdown from "../../components/common/Dropdown";
 import { NATIONALITY } from "../../config/Constants";
 
 const MyContacts = () => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(0);
-  const [count, setCount] = useState(9);
+  const [count] = useState(9);
   const [totalPages, setTotalPages] = useState(0);
   const [refresh, setRefresh] = useState(false);
   const [selectedGender, setSelectedGender] = useState({
@@ -29,39 +27,40 @@ const MyContacts = () => {
   });
 
   useEffect(() => {
-    setIsLoading(true);
-    getUsers(page, count, selectedGender.label, selectedNationality.label)
-      .then((response) => {
-        // Total pages will be set based on the total number of element whick BE return. this is hardcorded because the enpoint is been used here does not set that value
-        setTotalPages(10);
-        setUsers(response.results);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-      });
-  }, [page]);
-
-  useEffect(() => {
-    if (refresh) {
-      setIsLoading(true);
-      setPage(0);
-      getUsers(0, count, selectedGender.label, selectedNationality.label)
-        .then((response) => {
-          setUsers(response.results);
-          setIsLoading(false);
-          setRefresh(false);
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          setRefresh(false);
-        });
-    }
-  }, [refresh]);
+    setRefresh(true);
+  }, []);
 
   useEffect(() => {
     setRefresh(true);
-  }, [selectedGender, selectedNationality]);
+  }, [page]);
+
+  useEffect(() => {
+    if (page !== 0) setPage(0);
+    else setRefresh(true);
+    // eslint-disable-next-line
+  }, [selectedGender.label, selectedNationality.label, setRefresh]);
+
+  useEffect(() => {
+    const refreshUsers = () => {
+      setIsLoading(true);
+      getUsers(page, count, selectedGender.label, selectedNationality.label)
+        .then((response) => {
+          // Total pages will be set based on the total number of element whick BE return. this is hardcorded because the enpoint is been used here does not set that value
+          setTotalPages(10);
+          setUsers(response.results);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+        });
+    };
+
+    if (refresh) {
+      setRefresh(false);
+      refreshUsers();
+    }
+    // eslint-disable-next-line
+  }, [refresh, setRefresh]);
 
   return (
     <PageWrapper
