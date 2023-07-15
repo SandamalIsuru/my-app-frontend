@@ -20,7 +20,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
       } else pages.push(i);
     }
     setPageNumbers(pages);
-  }, []);
+  }, [totalPages]);
 
   return (
     <nav className="flex">
