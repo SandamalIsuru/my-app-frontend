@@ -1,14 +1,14 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-export const notify = (type = 'WARN', msg) => {
+export const notify = (type = "WARN", msg) => {
   switch (type) {
-    case 'ERROR':
+    case "ERROR":
       toast.error(msg);
       break;
-    case 'INFO':
+    case "INFO":
       toast.info(msg);
       break;
-    case 'SUCCESS':
+    case "SUCCESS":
       toast.success(msg);
       break;
     default:
@@ -40,7 +40,8 @@ export const generateDropdownData = (data, isLabelAndValueSame = false) => {
 };
 
 export const getApiErrorMsg = (error) => {
-  if (error.response && error.response.data && error.response.data.message) return error.response.data.message;
+  if (error.response && error.response.data && error.response.data.message)
+    return error.response.data.message;
   return error.message;
 };
 
@@ -58,8 +59,13 @@ export const getMin = (array) => {
 
 export const sortArrayByField = (arrayToBeSorted, fieldName, sortBy) => {
   let sortedData = [];
-  if (sortBy === 'asc')
-    sortedData = arrayToBeSorted.sort((a, b) => (a[fieldName] > b[fieldName]) - (b[fieldName] > a[fieldName]));
-  else sortedData = arrayToBeSorted.sort((a, b) => (a[fieldName] < b[fieldName]) - (b[fieldName] < a[fieldName]));
+  if (sortBy === "asc")
+    sortedData = arrayToBeSorted.sort(
+      (a, b) => (a[fieldName] > b[fieldName]) - (b[fieldName] > a[fieldName])
+    );
+  else
+    sortedData = arrayToBeSorted.sort(
+      (a, b) => (a[fieldName] < b[fieldName]) - (b[fieldName] < a[fieldName])
+    );
   return sortedData;
 };

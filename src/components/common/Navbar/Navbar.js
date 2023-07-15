@@ -30,9 +30,12 @@ function Navbar() {
             {SIDEBAR_NAVIGATIONS.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path} onClick={() => {
-                    item.path === "/login" && clearLocalStorage();
-                  }}>
+                  <Link
+                    to={item.action ? `${item.path}/${item.action}` : item.path}
+                    onClick={() => {
+                      item.path === "/login" && clearLocalStorage();
+                    }}
+                  >
                     {item.icon}
                     <span>{item.title}</span>
                   </Link>

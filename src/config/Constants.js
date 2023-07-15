@@ -13,6 +13,8 @@ export const PASSWORD_POLICY = {
   SPECIAL_CHARACTERS_REGEX: /[`@$!%*$?&`]+/,
 };
 
+export const MOBILE_NUMBER_REG_EXP = /^\d{10}$/;
+
 export const NATIONALITY = [
   { label: "US", value: 1 },
   { label: "AU", value: 2 },
@@ -37,17 +39,54 @@ export const NATIONALITY = [
   { label: "UA", value: 21 },
 ];
 
-export const USER = 'USER';
+export const USER = "USER";
 
 export const USER_ATTRIBUTES = {
-  EMAIL: 'EMAIL',
-  USERNAME: 'USERNAME',
+  EMAIL: "EMAIL",
+  USER_ID: "USER_ID",
 };
 
-export const USER_AUTH = 'USER_AUTH';
+export const USER_AUTH = "USER_AUTH";
 
 export const USER_AUTH_ATTRIBUTES = {
-  ID_TOKEN: 'ID_TOKEN',
-  ACCESS_TOKEN: 'ACCESS_TOKEN',
-  REFRESH_TOKEN: 'REFRESH_TOKEN',
+  ID_TOKEN: "ID_TOKEN",
+  ACCESS_TOKEN: "ACCESS_TOKEN",
+  REFRESH_TOKEN: "REFRESH_TOKEN",
 };
+
+export const SALUTATIONS = [
+  {
+    label: "Mr",
+    value: "Mr",
+  },
+  {
+    label: "Ms",
+    value: "Ms",
+  },
+  {
+    label: "Mrs",
+    value: "Mrs",
+  },
+];
+
+export const MARITAL_STATUS = [
+  {
+    label: "Single",
+    value: "Single",
+  },
+  {
+    label: "Married",
+    value: "Married",
+  },
+];
+
+export const GENDER = [
+  {
+    label: "Male",
+    value: "Male",
+  },
+  {
+    label: "Female",
+    value: "Female",
+  },
+];
