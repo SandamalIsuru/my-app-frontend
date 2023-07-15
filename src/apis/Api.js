@@ -24,7 +24,7 @@ const getUsers = async (page, count, gender, nationality) => {
 const getUser = async (id) => {
   let response;
   try {
-    response = await API.get(`/users/${id}`);
+    response = await API.get(`/user/${id}`);
   } catch (err) {
     throw new Error(err);
   }
@@ -37,7 +37,7 @@ const addUser = async (user, id) => {
   request.userId = id;
   let response;
   try {
-    response = await API.post(`/users`, request);
+    response = await API.post(`/user`, request);
   } catch (err) {
     throw new Error(err);
   }
@@ -49,7 +49,7 @@ const updateUser = async (user, id) => {
   const request = generateUserRequest(user);
   let response;
   try {
-    response = await API.put(`/users/${id}`, request);
+    response = await API.put(`/user/${id}`, request);
   } catch (err) {
     throw new Error(err);
   }

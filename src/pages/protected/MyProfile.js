@@ -474,7 +474,7 @@ const MyProfile = () => {
                   onSubmit={async (values, { resetForm }) => {
                     setIsLoading(true);
                     const uploadedResponse = await uploadImage();
-                    const imageUrl = await getDownloadURL(uploadedResponse.ref);
+                    const imageUrl = uploadedResponse ? await getDownloadURL(uploadedResponse.ref) : "";
                     if (!user.userId) {
                       addUser({ ...values, avatar: imageUrl }, userId)
                         .then((response) => {
