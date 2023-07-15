@@ -1,4 +1,4 @@
-import { AppContext, AppContextProvider } from './AppContext';
+import { AppContext, AppContextProvider } from "./AppContext";
 
 export {
   AppContext,

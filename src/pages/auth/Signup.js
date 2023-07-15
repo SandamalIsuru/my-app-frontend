@@ -15,6 +15,7 @@ import { getPasswordConstraintSchema } from "../../utils/AuthUtils";
 import {
   setKeepLoggedInInBrowserCookies,
   setUserAuthInLocalStorage,
+  setUserInLocalStorage,
 } from "../../utils/UserUtill";
 
 YupPassword(Yup);
@@ -30,7 +31,7 @@ const Signup = () => {
   const [isInvalidCredentials, setIsInvalidCredentials] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
-  const isSignInDisabled = (values, errors) => {
+  const isSignupDisabled = (values, errors) => {
     return (
       values.userId === "" ||
       values.password === "" ||
@@ -73,6 +74,10 @@ const Signup = () => {
                   values.password
                 )
                   .then((useCredentials) => {
+                    setUserInLocalStorage({
+                      uid: useCredentials.user.uid,
+                      email: useCredentials.user.email,
+                    });
                     setUserAuthInLocalStorage({
                       accessToken: useCredentials.user.accessToken,
                       refreshToken: useCredentials._tokenResponse.refreshToken,
@@ -85,7 +90,6 @@ const Signup = () => {
                     console.log("ERROR: ", error);
                     setIsLoading(false);
                   });
-                resetForm();
                 resetForm();
               }}
             >
@@ -203,13 +207,13 @@ const Signup = () => {
                             className={classNames(
                               "py-3 xxs:w-full lg:w-[165px] mt-[24px]",
                               `${
-                                !isSignInDisabled(values, errors)
+                                !isSignupDisabled(values, errors)
                                   ? "bg-primary text-white "
                                   : "bg-disableColor text-textGray"
                               }`
                             )}
                             label={"REGISTER"}
-                            disabled={isSignInDisabled(values, errors)}
+                            disabled={isSignupDisabled(values, errors)}
                           />
                         </div>
                       </div>

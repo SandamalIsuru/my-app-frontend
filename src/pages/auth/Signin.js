@@ -197,9 +197,11 @@ const Signin = () => {
                       </span>
                     </span>
                   </div>
-                  {isInvalidCredentials && <div className="flex justify-center items-center text-whiteSmoke rounded-md mt-[24px] bg-errorRed py-2 px-6">
-                    {errorText}
-                  </div>}
+                  {isInvalidCredentials && (
+                    <div className="flex justify-center items-center text-whiteSmoke rounded-md mt-[24px] bg-errorRed py-2 px-6">
+                      {errorText}
+                    </div>
+                  )}
                 </Form>
               )}
             </Formik>

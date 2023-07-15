@@ -12,7 +12,6 @@ import MyContacts from "../pages/protected/MyContacts";
 import Layout from "../components/layouts/Layout";
 import AuthLayout from "../components/layouts/AuthLayout";
 import MyProfile from "../pages/protected/MyProfile";
-import EditProfile from "../pages/protected/EditProfile";
 import { getUserAuthAttributeFromLocalStorage } from "../utils/UserUtill";
 import { USER_AUTH_ATTRIBUTES } from "./Constants";
 
@@ -62,10 +61,10 @@ const AppRoutes = () => {
         </Route>
         <Route element={<Layout />}>
           <Route
-            path="edit-profile"
+            path="my-profile/:edit"
             element={
               <ProtectedRoute>
-                <EditProfile />
+                <MyProfile />
               </ProtectedRoute>
             }
           />

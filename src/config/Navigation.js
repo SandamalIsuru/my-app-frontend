@@ -1,6 +1,5 @@
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
 
 export const SIDEBAR_NAVIGATIONS = [
   {
@@ -17,9 +16,10 @@ export const SIDEBAR_NAVIGATIONS = [
   },
   {
     title: "Edit Profile",
-    path: "/edit-profile",
+    path: "/my-profile",
     icon: <FaIcons.FaEdit />,
     cName: "nav-text",
+    action: "edit",
   },
   {
     title: "Logout",

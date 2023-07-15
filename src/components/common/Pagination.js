@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const [pageNumbers, setPageNumbers] = useState([]);
@@ -25,17 +25,14 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   return (
     <nav className="flex">
       <ul className="flex pagination justify-center items-center">
-      <li
-            key={"back"}
-            className={`mx-1`}
+        <li key={"back"} className={`mx-1`}>
+          <button
+            disabled={currentPage === 0}
+            onClick={() => onPageChange(currentPage)}
           >
-            <button
-              disabled={currentPage === 0}
-              onClick={() => onPageChange(currentPage)}
-            >
-              <ChevronLeftIcon sx={{ marginBottom: 0.3}}/>
-            </button>
-          </li>
+            <ChevronLeftIcon sx={{ marginBottom: 0.3 }} />
+          </button>
+        </li>
         {pageNumbers.map((page) => (
           <li
             key={page}
@@ -51,17 +48,14 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
             </button>
           </li>
         ))}
-        <li
-            key={"back"}
-            className={`mx-1`}
+        <li key={"back"} className={`mx-1`}>
+          <button
+            disabled={currentPage + 1 === totalPages}
+            onClick={() => onPageChange(currentPage + 2)}
           >
-            <button
-              disabled={currentPage + 1 === totalPages}
-              onClick={() => onPageChange(currentPage + 2)}
-            >
-              <NavigateNextIcon sx={{ marginBottom: 0.3}}/>
-            </button>
-          </li>
+            <NavigateNextIcon sx={{ marginBottom: 0.3 }} />
+          </button>
+        </li>
       </ul>
     </nav>
   );

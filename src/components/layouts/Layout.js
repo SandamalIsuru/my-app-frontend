@@ -12,7 +12,10 @@ const Layout = () => {
   return (
     <div
       className="flex flex-row text-textPrimary h-auto lg:h-screen"
-      style={{ backgroundImage: `url(${backgroundImage})`, backgroundColor: "black" }}
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundColor: "black",
+      }}
     >
       <div className="absolute text-xl h-10 w-32 border-2 border-hoverBackground ml-6 mt-3">
         <Logo />
