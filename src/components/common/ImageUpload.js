@@ -63,7 +63,7 @@ function ImageUpload({
               <div className="text-center">Drop the files here</div>
             </div>
           ) : (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center w-32">
               <div className="underline">Upload image</div>
               <div className="text-center text-sm">
                 (JPG or PNG format with maximum size of 1 MB)

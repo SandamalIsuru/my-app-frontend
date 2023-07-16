@@ -499,8 +499,8 @@ const MyProfile = () => {
                 >
                   {({ values, errors, handleReset }) => (
                     <Form className="flex w-full h-auto xxs:flex-col lg:flex-row">
-                      <div className="flex">
-                        <div className="flex flex-col lg:w-1/2 pr-6">
+                      <div className="flex lg:w-2/5">
+                        <div className="flex flex-col sm:w-1/2 pr-6">
                           {myProfileTabs.map((tab, index) => {
                             if (!showSpuseDetails && tab === "Spouse Details")
                               return null;
@@ -523,7 +523,7 @@ const MyProfile = () => {
                             );
                           })}
                         </div>
-                        <div className="flex items-center justify-center xxs:w-full md:w-40 h-32 md:mx-10 xxs:mt-6 sm:mt-2">
+                        <div className="flex items-center justify-center xxs:w-full lg:w-1/2 h-32 xxs:mt-6 sm:mt-1">
                           <ImageUpload
                             selectedImage={selectedImage}
                             setSelectedImage={setSelectedImage}
@@ -533,7 +533,7 @@ const MyProfile = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-col xxs:mt-6 md:mt-[0px] justify-start items-start flex-1 w-full">
+                      <div className="flex flex-col xxs:mt-8 lg:mt-[0px] justify-start items-start flex-1 lg:w-3/5">
                         <div className="w-full">
                           {renderUserDetails(
                             user,
