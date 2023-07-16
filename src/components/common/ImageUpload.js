@@ -3,7 +3,12 @@ import { useDropzone } from "react-dropzone";
 import PersonIcon from "@mui/icons-material/Person";
 import classNames from "classnames";
 
-function ImageUpload({ selectedImage, setSelectedImage, url = null }) {
+function ImageUpload({
+  selectedImage,
+  setSelectedImage,
+  url = null,
+  isEditing,
+}) {
   const onDrop = (acceptedFiles) => {
     setSelectedImage(
       Object.assign(acceptedFiles[0], {
@@ -13,6 +18,14 @@ function ImageUpload({ selectedImage, setSelectedImage, url = null }) {
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  if (!isEditing)
+    return (
+      <div className="flex justify-center h-40">
+        {url && <img src={url} alt="profile" />}
+        {!url && <PersonIcon style={{ fontSize: 120 }} />}
+      </div>
+    );
 
   return (
     <div
