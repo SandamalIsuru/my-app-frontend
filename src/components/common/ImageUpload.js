@@ -37,8 +37,8 @@ function ImageUpload({
     >
       <input {...getInputProps()} accept="image/*" />
       {selectedImage ? (
-        <div className="image-preview">
-          <div className="flex flex-col justify-center image-container text-center">
+        <div className="image-preview w-32 h-40">
+          <div className="flex flex-col justify-center image-container text-center ">
             <div className="w-full h-full">
               <img
                 src={selectedImage.preview}
@@ -46,7 +46,9 @@ function ImageUpload({
                 className="preview-image"
               />
             </div>
-            <div className="image-name text-base">{selectedImage.name}</div>
+            <div className="image-name text-base mt-2">
+              {selectedImage.name}
+            </div>
           </div>
         </div>
       ) : (
