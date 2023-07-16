@@ -26,6 +26,7 @@ import LabelText from "../../components/common/LabelText";
 import ValidatedTextInput from "../../components/common/ValidatedTextInput";
 import ImageUpload from "../../components/common/ImageUpload";
 import { storage } from "../../firebase";
+import { getApiErrorMsg, notify } from "../../utils/CommonUtils";
 
 const basicDetailsSchema = Yup.object().shape({
   salutation: Yup.string().required("Please select your salutation"),
@@ -332,6 +333,7 @@ const MyProfile = () => {
       })
       .catch((error) => {
         console.log("ERROR: ", error);
+        notify('ERROR', getApiErrorMsg(error));
         setIsLoading(false);
         setIsUserLoaded(true);
       });
@@ -479,11 +481,13 @@ const MyProfile = () => {
                       addUser({ ...values, avatar: imageUrl }, userId)
                         .then(() => {
                           refreshUser();
+                          notify('SUCCESS', `Your profile have been updated`);
                           setSelectedImage(null);
                           setIsEditing(false);
                         })
                         .catch((error) => {
                           console.log("ERROR: ", error);
+                          notify('ERROR', `Error: ${error}`);
                           setIsLoading(false);
                         });
                     } else {
@@ -491,11 +495,13 @@ const MyProfile = () => {
                       updateUser({ ...values, avatar: imageUrl }, userId)
                         .then(() => {
                           refreshUser();
+                          notify('SUCCESS', `Your profile have been updated`);
                           setSelectedImage(null);
                           setIsEditing(false);
                         })
                         .catch((error) => {
                           console.log("ERROR: ", error);
+                          notify('ERROR', `Error: ${error}`);
                           setIsLoading(false);
                         });
                     }

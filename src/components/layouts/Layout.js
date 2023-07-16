@@ -5,6 +5,7 @@ import Navbar from "../common/Navbar/Navbar";
 import backgroundImage from "../../assets/images/background.jpeg";
 import { AppContext } from "../../appContexts";
 import PopupWrapper from "../common/PopupWrapper";
+import Toast from "../common/Toast";
 
 const Layout = () => {
   const { popup } = useContext(AppContext);
@@ -24,6 +25,7 @@ const Layout = () => {
       <div className="mt-28 mx-8 mb-8 w-full h-auto">
         <Outlet />
       </div>
+      <Toast />
       {popup && <PopupWrapper content={<>{popup}</>} />}
     </div>
   );
