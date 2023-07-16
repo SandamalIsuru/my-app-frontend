@@ -28,7 +28,7 @@ const FormikDropdown = ({
     dropdownIndicator: (base) => ({
       ...base,
       color: isDisabled ? "var(--theme-disable-text-color)" : "",
-      marginRight: 4,
+      fontSize: 10,
     }),
     control: (baseStyles) => ({
       ...baseStyles,
@@ -42,8 +42,6 @@ const FormikDropdown = ({
     valueContainer: (baseStyles) => ({
       ...baseStyles,
       borderWidth: 0,
-      backgroundColor: "transparent",
-      marginLeft: 5,
     }),
     menu: (baseStyles) => ({
       ...baseStyles,

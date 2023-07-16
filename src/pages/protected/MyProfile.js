@@ -30,6 +30,7 @@ import ValidatedTextInput from "../../components/common/ValidatedTextInput";
 import ImageUpload from "../../components/common/ImageUpload";
 import { storage } from "../../firebase";
 import { addLeadingZero, notify } from "../../utils/CommonUtils";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const basicDetailsSchema = Yup.object().shape({
   salutation: Yup.string().required("Please select your salutation"),
@@ -84,11 +85,17 @@ const getSchema = (selectedTab) => {
 };
 
 const days = [...Array(31).keys()].map((element) => {
-  return { value: addLeadingZero(element + 1), label: addLeadingZero(element + 1) };
+  return {
+    value: addLeadingZero(element + 1),
+    label: addLeadingZero(element + 1),
+  };
 });
 
 const months = [...Array(12).keys()].map((element) => {
-  return { value: addLeadingZero(element + 1), label: addLeadingZero(element + 1) };
+  return {
+    value: addLeadingZero(element + 1),
+    label: addLeadingZero(element + 1),
+  };
 });
 
 const renderBasicDetails = (user, isEditing) => {
@@ -165,7 +172,7 @@ const renderAdditionalDetails = (
       )}
       <label className="text-[14px] font-bold">Date of Birth</label>
       {isEditing ? (
-        <div className="flex justify-between">
+        <div className="flex xxs:flex-col sm:justify-between">
           <ValidatedDropdown
             fieldName={"birthMonth"}
             options={months}
@@ -174,7 +181,7 @@ const renderAdditionalDetails = (
           />
           <ValidatedDropdown
             fieldName={"birthDate"}
-            className={"mx-2"}
+            className={"sm:mx-2"}
             options={days}
             placeholder="DD"
           />
@@ -311,8 +318,11 @@ const MyProfile = () => {
   const [isUserMarried, setIsUserMarried] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showSpuseDetails, setShowSpuseDetails] = useState(false);
+  const [width] = useWindowSize();
 
   const userId = getUserAttributeFromLocalStorage(USER_ATTRIBUTES.USER_ID);
+
+  console.log("=======================width ", width);
 
   useEffect(() => {
     setIsEditing(edit ? true : false);
@@ -342,7 +352,6 @@ const MyProfile = () => {
       });
   };
 
-
   const isSaveDisabled = (values, errors, selectedTab) => {
     switch (selectedTab) {
       case 0:
@@ -371,7 +380,6 @@ const MyProfile = () => {
         return null;
     }
   };
-
 
   const handleResetForm = () => {
     if (formikRef.current) {
@@ -444,7 +452,7 @@ const MyProfile = () => {
           )}
         >
           <div className="flex w-full justify-end">
-            <div className="flex w-3/4 justify-between items-center">
+            <div className="flex xxs:w-full md:w-3/4 justify-between items-center">
               <PageTitle
                 className={"flex flex-1"}
                 title={isEditing ? "Edit" : "My"}
@@ -463,9 +471,11 @@ const MyProfile = () => {
                     <ChevronLeftIcon />
                   </div>
                 )}
-                <div className="mr-2">
-                  {isEditing ? "Go back to My Profile" : "Edit profile"}
-                </div>
+                {width > 600 && (
+                  <div className="md:mr-2">
+                    {isEditing ? "Go back to My Profile" : "Edit profile"}
+                  </div>
+                )}
                 {!isEditing && (
                   <div>
                     <ModeEditOutlineIcon />
@@ -483,7 +493,7 @@ const MyProfile = () => {
                   <div
                     key={`tab-${index}`}
                     className={classNames(
-                      "border-textPrimary py-2 cursor-pointer text-lg",
+                      "border-textPrimary py-2 cursor-pointer xxs:text-[15px] md:text-lg",
                       `${index === 0 && "border-t-[1px]"}`,
                       `${selectedTab === index && "border-b-[5px] font-bold"}`,
                       `${selectedTab !== index && "border-b-[1px]"}`
@@ -510,7 +520,7 @@ const MyProfile = () => {
                 >
                   {({ values, errors, handleReset }) => (
                     <Form className="flex xxs:w-full h-auto lg:w-4/5 xxs:flex-col lg:flex-row">
-                      <div className="w-40 h-32 md:mx-10 xxs:mb-24">
+                      <div className="xxs:w-full md:w-40 h-32 md:mx-10 xxs:mb-24">
                         <ImageUpload
                           selectedImage={selectedImage}
                           setSelectedImage={setSelectedImage}
@@ -533,11 +543,7 @@ const MyProfile = () => {
                               className={classNames(
                                 "py-3 w-1/2 mr-2",
                                 `${
-                                  !isSaveDisabled(
-                                    values,
-                                    errors,
-                                    selectedTab
-                                  )
+                                  !isSaveDisabled(values, errors, selectedTab)
                                     ? "bg-textSecondary text-white "
                                     : "bg-disableColor text-textGray"
                                 }`
@@ -560,13 +566,13 @@ const MyProfile = () => {
                                 handleReset();
                               }}
                             >
-                              <span
+                              <div
                                 className={classNames(
-                                  "text-[16px] font-semibold"
+                                  "xxs:text-[11px] md:text-lg text-center font-semibold"
                                 )}
                               >
                                 CANCEL
-                              </span>
+                              </div>
                             </button>
                           </div>
                         )}

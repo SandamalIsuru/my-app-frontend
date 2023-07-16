@@ -91,7 +91,7 @@ const Signin = () => {
             >
               {({ errors, values }) => (
                 <Form className="flex flex-col justify-center items-center">
-                  <div className="text-5xl mb-5 font-light text-center">
+                  <div className="xxs:text-4xl md:text-5xl mb-5 font-light text-center">
                     <span>Welcome to </span>
                     <span className="font-bold">myApp</span>
                   </div>

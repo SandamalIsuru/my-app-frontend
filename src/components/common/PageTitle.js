@@ -10,7 +10,7 @@ const PageTitle = ({ className, title, boldTitle }) => {
         className
       )}
     >
-      <div className="text-4xl">
+      <div className="xxs:text-3xl md:text-4xl">
         {title}
         <span className="font-bold ml-2">{boldTitle}</span>
       </div>

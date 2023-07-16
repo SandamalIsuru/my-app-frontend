@@ -5,8 +5,8 @@ module.exports = {
     extend: {
       height: ['responsive'],
       screens: {
-        xxs: '440px',
-        // => @media (min-width: 540px) { ... }
+        xxs: '200px',
+        // => @media (min-width: 200px) { ... }
         xs: '540px',
         // => @media (min-width: 540px) { ... }
         sm: '640px',
