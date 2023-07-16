@@ -333,9 +333,9 @@ const MyProfile = () => {
       })
       .catch((error) => {
         console.log("ERROR: ", error);
-        notify('ERROR', getApiErrorMsg(error));
         setIsLoading(false);
         setIsUserLoaded(true);
+        notify('ERROR', getApiErrorMsg(error));
       });
   };
 
@@ -481,14 +481,14 @@ const MyProfile = () => {
                       addUser({ ...values, avatar: imageUrl }, userId)
                         .then(() => {
                           refreshUser();
-                          notify('SUCCESS', `Your profile have been updated`);
                           setSelectedImage(null);
                           setIsEditing(false);
+                          notify('SUCCESS', `Your profile have been updated`);
                         })
                         .catch((error) => {
                           console.log("ERROR: ", error);
-                          notify('ERROR', `Error: ${error}`);
                           setIsLoading(false);
+                          notify('ERROR', `Error: ${error}`);
                         });
                     } else {
                       setIsLoading(true);
@@ -496,6 +496,7 @@ const MyProfile = () => {
                         .then(() => {
                           refreshUser();
                           notify('SUCCESS', `Your profile have been updated`);
+                          setIsLoading(false);
                           setSelectedImage(null);
                           setIsEditing(false);
                         })
