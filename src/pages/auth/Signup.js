@@ -11,7 +11,7 @@ import PageWrapper from "../../components/common/PageWrapper";
 import PasswordTextInput from "../../components/common/PasswordTextInput";
 import SubmitButton from "../../components/common/SubmitButton";
 import TextInput from "../../components/common/TextInput";
-import { getPasswordConstraintSchema } from "../../utils/AuthUtils";
+import { getPasswordConstraintSchema, mapAuthCodeToMessage } from "../../utils/AuthUtils";
 import {
   setKeepLoggedInInBrowserCookies,
   setUserAuthInLocalStorage,
@@ -28,8 +28,12 @@ const signupSchema = Yup.object().shape({
 const Signup = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [isInvalidCredentials] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [errorText, setErrorText] = useState("");
+  // const [userId, setErrorText] = useState("");
+  // const [password, setErrorText] = useState("");
+  // const [confirmPassword, setErrorText] = useState("");
 
   const isSignupDisabled = (values, errors) => {
     return (
@@ -59,10 +63,11 @@ const Signup = () => {
             <Formik
               initialValues={{ userId: "", password: "", confirmPassword: "" }}
               initialErrors={
-                isInvalidCredentials
+                isError
                   ? { userId: "", password: "", confirmPassword: "" }
                   : {}
               }
+              enableReinitialize={true}
               validationSchema={signupSchema}
               validateOnChange={true}
               validateOnBlur={true}
@@ -88,9 +93,10 @@ const Signup = () => {
                   })
                   .catch((error) => {
                     console.log("ERROR: ", error);
+                    setIsError(true);
+                    setErrorText(mapAuthCodeToMessage(error.code));
                     setIsLoading(false);
                   });
-                resetForm();
               }}
             >
               {({ errors, values }) => (
@@ -116,8 +122,7 @@ const Signup = () => {
                                 field={field}
                                 touched={touched[field.name]}
                                 error={
-                                  (touched[field.name] && errors[field.name]) ||
-                                  isInvalidCredentials
+                                  (touched[field.name] && errors[field.name])
                                 }
                               />
                             )}
@@ -144,8 +149,7 @@ const Signup = () => {
                                 placeholder="Password"
                                 field={field}
                                 error={
-                                  (touched[field.name] && errors[field.name]) ||
-                                  isInvalidCredentials
+                                  (touched[field.name] && errors[field.name])
                                 }
                               />
                             )}
@@ -174,8 +178,7 @@ const Signup = () => {
                                 placeholder="Confirm password"
                                 field={field}
                                 error={
-                                  (touched[field.name] && errors[field.name]) ||
-                                  isInvalidCredentials
+                                  (touched[field.name] && errors[field.name])
                                 }
                               />
                             )}
@@ -231,6 +234,11 @@ const Signup = () => {
                       </span>
                     </span>
                   </div>
+                  {isError && (
+                    <div className="flex justify-center items-center text-whiteSmoke rounded-md mt-[24px] bg-errorRed py-2 px-6">
+                      {errorText}
+                    </div>
+                  )}
                 </Form>
               )}
             </Formik>

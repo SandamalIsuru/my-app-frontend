@@ -28,7 +28,7 @@ const TextInput = ({
         type={type}
         className={classNames(
           inputClassName,
-          "bg-transparent w-11/12 h-full focus:outline-none text-[14px] ml-[-28px]"
+          "bg-transparent w-11/12 h-full focus:outline-none text-[14px]"
         )}
         placeholder={placeholder}
         value={field ? field.value : value}

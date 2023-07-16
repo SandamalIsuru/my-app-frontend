@@ -11,7 +11,6 @@ const FormikDropdown = ({
   defaultValue = null,
   isDisabled = false,
   isError = false,
-  onSelect = null,
 }) => {
   const customStyles = {
     container: (base) => ({
@@ -37,6 +36,7 @@ const FormikDropdown = ({
       backgroundColor: "transparent",
       marginTop: "3px",
       boxShadow: "none",
+      paddingLeft: 10
     }),
     valueContainer: (baseStyles) => ({
       ...baseStyles,

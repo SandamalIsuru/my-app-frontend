@@ -61,6 +61,7 @@ const Signin = () => {
               initialErrors={
                 isInvalidCredentials ? { userId: "", password: "" } : {}
               }
+              enableReinitialize={true}
               validationSchema={signinSchema}
               validateOnChange={true}
               validateOnBlur={true}
@@ -86,7 +87,6 @@ const Signin = () => {
                     setErrorText(mapAuthCodeToMessage(error.code));
                     setIsLoading(false);
                   });
-                resetForm();
               }}
             >
               {({ errors, values }) => (

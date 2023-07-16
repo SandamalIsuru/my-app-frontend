@@ -26,11 +26,13 @@ export const getPasswordConstraintSchema = (oldPasswordField = "null") => {
 export const mapAuthCodeToMessage = (authCode) => {
   switch (authCode) {
     case "auth/wrong-password":
-      return "Your passwords do not match.";
+      return "Your password does not match.";
     case "auth/user-not-found":
-      return "Your user ID do not match.";
+      return "Your user ID does not match.";
     case "auth/too-many-requests":
       return "Too many requests. Please try again later.";
+    case "auth/email-already-in-use":
+      return "Your email is already registered.";
 
     // Many more authCode mapping here...
 

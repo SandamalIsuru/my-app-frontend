@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import * as Yup from "yup";
@@ -9,7 +9,6 @@ import PageTitle from "../../components/common/PageTitle";
 import PageWrapper from "../../components/common/PageWrapper";
 import { addUser, getUser, updateUser } from "../../apis/Api";
 import {
-  generateUserRequest,
   getUserAttributeFromLocalStorage,
   getValueFromDate,
 } from "../../utils/UserUtill";
@@ -301,7 +300,6 @@ const renderUserDetails = (user, selectedTab, isEditing) => {
 };
 
 const MyProfile = () => {
-  const navigate = useNavigate();
   const { edit } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
@@ -319,9 +317,11 @@ const MyProfile = () => {
 
   useEffect(() => {
     refreshUser();
+    // eslint-disable-next-line
   }, []);
 
   const refreshUser = () => {
+    setIsLoading(true);
     setIsUserLoaded(false);
     getUser(userId)
       .then((response) => {
@@ -474,11 +474,12 @@ const MyProfile = () => {
                   onSubmit={async (values, { resetForm }) => {
                     setIsLoading(true);
                     const uploadedResponse = await uploadImage();
-                    const imageUrl = uploadedResponse ? await getDownloadURL(uploadedResponse.ref) : "";
+                    const imageUrl = uploadedResponse ? await getDownloadURL(uploadedResponse.ref) : values.avatar;
                     if (!user.userId) {
                       addUser({ ...values, avatar: imageUrl }, userId)
-                        .then((response) => {
+                        .then(() => {
                           refreshUser();
+                          setSelectedImage(null);
                           setIsEditing(false);
                         })
                         .catch((error) => {
@@ -488,8 +489,9 @@ const MyProfile = () => {
                     } else {
                       setIsLoading(true);
                       updateUser({ ...values, avatar: imageUrl }, userId)
-                        .then((response) => {
+                        .then(() => {
                           refreshUser();
+                          setSelectedImage(null);
                           setIsEditing(false);
                         })
                         .catch((error) => {
@@ -497,7 +499,6 @@ const MyProfile = () => {
                           setIsLoading(false);
                         });
                     }
-
                     resetForm();
                   }}
                 >
@@ -512,6 +513,7 @@ const MyProfile = () => {
                             selectedImage={selectedImage}
                             setSelectedImage={setSelectedImage}
                             url={user.avatar ? user.avatar : null}
+                            isEditing={isEditing}
                           />
                         </div>
                         <div className="flex flex-col justify-start items-start flex-1 w-full">
@@ -552,6 +554,7 @@ const MyProfile = () => {
                               </button>
                             </div>
                           )}
+                          {isEditing && (<div className="flex justify-between w-full mt-10">* Mandatory field</div>)}
                         </div>
                       </Form>
                     );

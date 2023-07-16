@@ -11,7 +11,7 @@ const Layout = () => {
 
   return (
     <div
-      className="flex flex-row text-textPrimary h-auto lg:h-screen"
+      className="flex flex-row text-textPrimary h-auto md:h-screen"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundColor: "black",
