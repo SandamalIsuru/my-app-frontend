@@ -21,7 +21,7 @@ function ImageUpload({
 
   if (!isEditing)
     return (
-      <div className="flex justify-center w-full h-full">
+      <div className="flex justify-center w-32 h-full">
         {url && <img src={url} alt="profile" />}
         {!url && <PersonIcon style={{ fontSize: 120 }} />}
       </div>
@@ -38,7 +38,7 @@ function ImageUpload({
       <input {...getInputProps()} accept="image/*" />
       {selectedImage ? (
         <div className="image-preview w-32 h-40">
-          <div className="flex flex-col justify-center image-container text-center ">
+          <div className="flex flex-col justify-center image-container text-center">
             <div className="w-full h-full">
               <img
                 src={selectedImage.preview}
