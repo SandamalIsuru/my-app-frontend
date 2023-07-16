@@ -52,8 +52,8 @@ const MyContacts = () => {
           setIsLoading(false);
         })
         .catch((error) => {
-          notify('ERROR', getApiErrorMsg(error));
           setIsLoading(false);
+          notify('ERROR', getApiErrorMsg(error));
         });
     };
 
