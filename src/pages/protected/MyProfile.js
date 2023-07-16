@@ -534,7 +534,7 @@ const MyProfile = () => {
                       </div>
 
                       <div className="flex flex-col xxs:mt-8 lg:mt-[0px] justify-start items-start flex-1 lg:w-3/5">
-                        <div className="w-full">
+                        <div className="w-full lg:w-3/4">
                           {renderUserDetails(
                             user,
                             selectedTab,
@@ -543,7 +543,7 @@ const MyProfile = () => {
                           )}
                         </div>
                         {isEditing && (
-                          <div className="flex justify-between w-full">
+                          <div className="flex justify-between w-full lg:w-3/4">
                             <SubmitButton
                               className={classNames(
                                 "py-3 w-1/2 mr-2",
