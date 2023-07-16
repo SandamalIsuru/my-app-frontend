@@ -9,6 +9,7 @@ import Card from "../../components/common/Card";
 import Pagination from "../../components/common/Pagination";
 import Dropdown from "../../components/common/Dropdown";
 import { NATIONALITY } from "../../config/Constants";
+import { getApiErrorMsg, notify } from "../../utils/CommonUtils";
 
 const MyContacts = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +52,7 @@ const MyContacts = () => {
           setIsLoading(false);
         })
         .catch((error) => {
+          notify('ERROR', getApiErrorMsg(error));
           setIsLoading(false);
         });
     };
