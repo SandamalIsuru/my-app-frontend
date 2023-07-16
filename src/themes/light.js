@@ -10,6 +10,7 @@ const light = {
   '--theme-text-gray': '#777777',
   '--theme-hover-background': '#737373',
   '--theme-text-blue': '#3689f5',
+  '--theme-dropdown-gray': '#e1e2e3',
   '--theme-dropdown-gray05': 'rgba(233, 235, 245, 0.5)',
   '--theme-white-smoke': '#F5F5F5',
   '--theme-border-color': '#202323',

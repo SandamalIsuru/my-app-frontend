@@ -11,7 +11,10 @@ import PageWrapper from "../../components/common/PageWrapper";
 import PasswordTextInput from "../../components/common/PasswordTextInput";
 import SubmitButton from "../../components/common/SubmitButton";
 import TextInput from "../../components/common/TextInput";
-import { getPasswordConstraintSchema, mapAuthCodeToMessage } from "../../utils/AuthUtils";
+import {
+  getPasswordConstraintSchema,
+  mapAuthCodeToMessage,
+} from "../../utils/AuthUtils";
 import {
   setKeepLoggedInInBrowserCookies,
   setUserAuthInLocalStorage,
@@ -63,9 +66,7 @@ const Signup = () => {
             <Formik
               initialValues={{ userId: "", password: "", confirmPassword: "" }}
               initialErrors={
-                isError
-                  ? { userId: "", password: "", confirmPassword: "" }
-                  : {}
+                isError ? { userId: "", password: "", confirmPassword: "" } : {}
               }
               enableReinitialize={true}
               validationSchema={signupSchema}
@@ -101,7 +102,7 @@ const Signup = () => {
             >
               {({ errors, values }) => (
                 <Form className="flex flex-col justify-center items-center">
-                  <div className="text-5xl mb-5 font-light text-center">
+                  <div className="xxs:text-4xl md:text-5xl mb-5 font-light text-center">
                     <span>Welcome to </span>
                     <span className="font-bold">myApp</span>
                   </div>
@@ -122,7 +123,7 @@ const Signup = () => {
                                 field={field}
                                 touched={touched[field.name]}
                                 error={
-                                  (touched[field.name] && errors[field.name])
+                                  touched[field.name] && errors[field.name]
                                 }
                               />
                             )}
@@ -149,7 +150,7 @@ const Signup = () => {
                                 placeholder="Password"
                                 field={field}
                                 error={
-                                  (touched[field.name] && errors[field.name])
+                                  touched[field.name] && errors[field.name]
                                 }
                               />
                             )}
@@ -178,7 +179,7 @@ const Signup = () => {
                                 placeholder="Confirm password"
                                 field={field}
                                 error={
-                                  (touched[field.name] && errors[field.name])
+                                  touched[field.name] && errors[field.name]
                                 }
                               />
                             )}

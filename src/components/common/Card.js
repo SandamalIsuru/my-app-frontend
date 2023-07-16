@@ -6,11 +6,11 @@ const Card = ({ image, name, email, mobile, address }) => {
       <div className="w-1/3 h-full">
         <img src={image} alt={email} />
       </div>
-      <div className="flex flex-col justify-start w-2/3 h-full ml-2">
-        <div className="text-md font-bold mb-2">{name}</div>
-        <div className="text-md text-textBlue underline mb-2">{email}</div>
-        <div className="text-md text-textBlue underline mb-2">{mobile}</div>
-        <div className="text-md">{address}</div>
+      <div className="flex flex-col justify-start xxs:text-sm md:text-md w-2/3 h-full ml-2">
+        <div className="font-bold mb-2">{name}</div>
+        <div className="text-textBlue underline mb-2">{email}</div>
+        <div className="text-textBlue underline mb-2">{mobile}</div>
+        <div className="">{address}</div>
       </div>
     </div>
   );

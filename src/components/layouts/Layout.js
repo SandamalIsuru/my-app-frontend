@@ -12,7 +12,7 @@ const Layout = () => {
 
   return (
     <div
-      className="flex flex-row relative text-textPrimary min-h-screen"
+      className="flex flex-row relative min-w-screen text-textPrimary min-h-screen"
       style={{
         backgroundImage: `url(${MainBackground})`,
       }}
