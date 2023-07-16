@@ -90,7 +90,7 @@ const Signup = () => {
                     });
                     setKeepLoggedInInBrowserCookies(keepLoggedIn);
                     setIsLoading(false);
-                    navigate("/my-contacts");
+                    navigate("/");
                   })
                   .catch((error) => {
                     console.log("ERROR: ", error);

@@ -41,7 +41,7 @@ const AppRoutes = () => {
 
         <Route element={<Layout />}>
           <Route
-            path="my-contacts"
+            path="/"
             element={
               <ProtectedRoute>
                 <MyContacts />
