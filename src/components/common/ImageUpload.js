@@ -21,7 +21,7 @@ function ImageUpload({
 
   if (!isEditing)
     return (
-      <div className="flex justify-center h-40">
+      <div className="flex justify-center w-full h-full">
         {url && <img src={url} alt="profile" />}
         {!url && <PersonIcon style={{ fontSize: 120 }} />}
       </div>
@@ -32,24 +32,26 @@ function ImageUpload({
       {...getRootProps()}
       className={classNames(
         isDragActive ? "drag-active" : "dropzone",
-        "cursor-pointer h-56"
+        "cursor-pointer h-full"
       )}
     >
       <input {...getInputProps()} accept="image/*" />
       {selectedImage ? (
         <div className="image-preview">
           <div className="flex flex-col justify-center image-container text-center">
-            <img
-              src={selectedImage.preview}
-              alt="Preview"
-              className="preview-image"
-            />
+            <div className="w-full h-full">
+              <img
+                src={selectedImage.preview}
+                alt="Preview"
+                className="preview-image"
+              />
+            </div>
             <div className="image-name text-base">{selectedImage.name}</div>
           </div>
         </div>
       ) : (
-        <div className="dropzone-text">
-          <div className="flex justify-center">
+        <div className="dropzone-text h-full">
+          <div className="flex justify-center h-full">
             {!selectedImage && url && <img src={url} alt="profile" />}
             {!selectedImage && !url && <PersonIcon style={{ fontSize: 120 }} />}
           </div>

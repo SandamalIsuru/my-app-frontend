@@ -69,3 +69,7 @@ export const sortArrayByField = (arrayToBeSorted, fieldName, sortBy) => {
     );
   return sortedData;
 };
+
+export const addLeadingZero = (number) => {
+  return number < 10 ? `0${number}` : number.toString();
+}

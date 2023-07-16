@@ -90,3 +90,10 @@ export const GENDER = [
     value: "Female",
   },
 ];
+
+export const myProfileTabs = [
+  "Basic Details",
+  "Additional Details",
+  "Spouse Details",
+  "Personal Preferences",
+];

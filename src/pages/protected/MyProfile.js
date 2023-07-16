@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -9,13 +9,15 @@ import PageTitle from "../../components/common/PageTitle";
 import PageWrapper from "../../components/common/PageWrapper";
 import { addUser, getUser, updateUser } from "../../apis/Api";
 import {
+  getBirthYears,
+  getFormikInitialUserSchema,
   getUserAttributeFromLocalStorage,
-  getValueFromDate,
 } from "../../utils/UserUtill";
 import {
   GENDER,
   MARITAL_STATUS,
   MOBILE_NUMBER_REG_EXP,
+  myProfileTabs,
   SALUTATIONS,
   USER_ATTRIBUTES,
 } from "../../config/Constants";
@@ -26,7 +28,7 @@ import LabelText from "../../components/common/LabelText";
 import ValidatedTextInput from "../../components/common/ValidatedTextInput";
 import ImageUpload from "../../components/common/ImageUpload";
 import { storage } from "../../firebase";
-import { getApiErrorMsg, notify } from "../../utils/CommonUtils";
+import { addLeadingZero, notify } from "../../utils/CommonUtils";
 
 const basicDetailsSchema = Yup.object().shape({
   salutation: Yup.string().required("Please select your salutation"),
@@ -80,29 +82,12 @@ const getSchema = (selectedTab) => {
   }
 };
 
-const tabs = [
-  "Basic Details",
-  "Additional Details",
-  "Spouse Details",
-  "Personal Preferences",
-];
-
-const getBirthYears = (startYear = 1900) => {
-  let currentYear = new Date().getFullYear(),
-    years = [];
-  while (startYear < currentYear) {
-    years.push({ value: startYear + 1, label: startYear + 1 });
-    startYear++;
-  }
-  return years;
-};
-
 const days = [...Array(31).keys()].map((element) => {
-  return { value: element + 1, label: element + 1 };
+  return { value: addLeadingZero(element + 1), label: addLeadingZero(element + 1) };
 });
 
 const months = [...Array(12).keys()].map((element) => {
-  return { value: element + 1, label: element + 1 };
+  return { value: addLeadingZero(element + 1), label: addLeadingZero(element + 1) };
 });
 
 const renderBasicDetails = (user, isEditing) => {
@@ -140,7 +125,11 @@ const renderBasicDetails = (user, isEditing) => {
   );
 };
 
-const renderAdditionalDetails = (user, isEditing) => {
+const renderAdditionalDetails = (
+  user,
+  isEditing,
+  handleMaritalStatusChange
+) => {
   return (
     <div>
       <label className="text-[14px] font-bold">Mobile Number *</label>
@@ -214,6 +203,7 @@ const renderAdditionalDetails = (user, isEditing) => {
           fieldName={"maritalStatus"}
           options={MARITAL_STATUS}
           placeholder="Select marital status"
+          handleChange={handleMaritalStatusChange}
         />
       ) : (
         <LabelText value={user.maritalStatus} />
@@ -285,12 +275,21 @@ const renderPersonalPreferences = (user, isEditing) => {
   );
 };
 
-const renderUserDetails = (user, selectedTab, isEditing) => {
+const renderUserDetails = (
+  user,
+  selectedTab,
+  isEditing,
+  handleMaritalStatusChange
+) => {
   switch (selectedTab) {
     case 0:
       return renderBasicDetails(user, isEditing);
     case 1:
-      return renderAdditionalDetails(user, isEditing);
+      return renderAdditionalDetails(
+        user,
+        isEditing,
+        handleMaritalStatusChange
+      );
     case 2:
       return renderSpouseDetails(user, isEditing);
     case 3:
@@ -302,6 +301,7 @@ const renderUserDetails = (user, selectedTab, isEditing) => {
 
 const MyProfile = () => {
   const { edit } = useParams();
+  const formikRef = useRef(null); // Create a ref
   const [isLoading, setIsLoading] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const [isEditing, setIsEditing] = useState(edit ? true : false);
@@ -309,6 +309,7 @@ const MyProfile = () => {
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [isUserMarried, setIsUserMarried] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showSpuseDetails, setShowSpuseDetails] = useState(false);
 
   const userId = getUserAttributeFromLocalStorage(USER_ATTRIBUTES.USER_ID);
 
@@ -326,8 +327,10 @@ const MyProfile = () => {
     setIsUserLoaded(false);
     getUser(userId)
       .then((response) => {
+        const userMarried = response[0].maritalStatus === "Married";
         setUser(response[0]);
-        setIsUserMarried(response[0].maritalStatus === "Married");
+        setIsUserMarried(userMarried);
+        setShowSpuseDetails(userMarried);
         setIsLoading(false);
         setIsUserLoaded(true);
       })
@@ -335,9 +338,9 @@ const MyProfile = () => {
         console.log("ERROR: ", error);
         setIsLoading(false);
         setIsUserLoaded(true);
-        notify('ERROR', getApiErrorMsg(error));
       });
   };
+
 
   const isSaveDisabled = (values, errors, selectedTab) => {
     switch (selectedTab) {
@@ -368,11 +371,65 @@ const MyProfile = () => {
     }
   };
 
+
+  const handleResetForm = () => {
+    if (formikRef.current) {
+      formikRef.current.resetForm(); // Access resetForm function via ref
+    }
+  };
+
   const uploadImage = async () => {
     if (selectedImage === null) return;
     const imageRef = ref(storage, `images/${userId}`);
     const uploaded = await uploadBytes(imageRef, selectedImage);
     return uploaded;
+  };
+
+  const toggleShowSpuseDetails = () => {
+    isUserMarried ? setShowSpuseDetails(true) : setShowSpuseDetails(false);
+  };
+
+  const handleMaritalStatusChange = (event) => {
+    const { value } = event;
+    setShowSpuseDetails(value === "Married");
+  };
+
+  const submitForm = async (values, resetForm) => {
+    setIsLoading(true);
+    const uploadedResponse = await uploadImage();
+    const imageUrl = uploadedResponse
+      ? await getDownloadURL(uploadedResponse.ref)
+      : values.avatar;
+    if (!user.userId) {
+      addUser({ ...values, avatar: imageUrl }, userId)
+        .then(() => {
+          refreshUser();
+          setSelectedImage(null);
+          setIsEditing(false);
+          notify("SUCCESS", `Your profile has been updated`);
+        })
+        .catch((error) => {
+          console.log("ERROR: ", error);
+          setIsLoading(false);
+          notify("ERROR", `Error: ${error}`);
+        });
+    } else {
+      setIsLoading(true);
+      updateUser({ ...values, avatar: imageUrl }, userId)
+        .then(() => {
+          refreshUser();
+          notify("SUCCESS", `Your profile has been updated`);
+          setIsLoading(false);
+          setSelectedImage(null);
+          setIsEditing(false);
+        })
+        .catch((error) => {
+          console.log("ERROR: ", error);
+          notify("ERROR", `Error: ${error}`);
+          setIsLoading(false);
+        });
+    }
+    resetForm();
   };
 
   return (
@@ -394,7 +451,11 @@ const MyProfile = () => {
               />
               <div
                 className="flex justify-center mt-3 ml-4 underline cursor-pointer"
-                onClick={() => setIsEditing(!isEditing)}
+                onClick={() => {
+                  setIsEditing(!isEditing);
+                  toggleShowSpuseDetails(isUserMarried);
+                  handleResetForm();
+                }}
               >
                 {isEditing && (
                   <div>
@@ -415,8 +476,8 @@ const MyProfile = () => {
           </div>
           <div className="flex justify-center w-full mt-10">
             <div className="flex flex-col w-1/4 pr-6">
-              {tabs.map((tab, index) => {
-                if (!isUserMarried && tab === "Spouse Details") return null;
+              {myProfileTabs.map((tab, index) => {
+                if (!showSpuseDetails && tab === "Spouse Details") return null;
                 return (
                   <div
                     key={`tab-${index}`}
@@ -436,136 +497,86 @@ const MyProfile = () => {
             <div className="flex xxs:flex-col md:flex-row w-3/4">
               {isUserLoaded && (
                 <Formik
-                  initialValues={{
-                    salutation: user.salutation ? user.salutation : "",
-                    firstName: user.fname ? user.fname : "",
-                    lastName: user.lname ? user.lname : "",
-                    email: user.email ? user.email : "",
-                    mobileNo: user.mobile ? user.mobile : "",
-                    address: user.address ? user.address : "",
-                    country: user.country ? user.country : "",
-                    postalCode: user.postalCode ? user.postalCode : "",
-                    nationality: user.nationality ? user.nationality : "",
-                    birthDate: user.dob ? getValueFromDate(user.dob, "D") : "",
-                    birthMonth: user.dob ? getValueFromDate(user.dob, "M") : "",
-                    birthYear: user.dob ? getValueFromDate(user.dob, "Y") : "",
-                    gender: user.gender ? user.gender : "",
-                    maritalStatus: user.maritalStatus ? user.maritalStatus : "",
-                    spouseSalutation: user.spouseSalutation
-                      ? user.spouseSalutation
-                      : "",
-                    spouseFName: user.spouseFName ? user.spouseFName : "",
-                    spouseLName: user.spouseLName ? user.spouseLName : "",
-                    hobbiesAndInterests: user.hobbiesAndInterests
-                      ? user.hobbiesAndInterests
-                      : "",
-                    favoriteSports: user.favoriteSports
-                      ? user.favoriteSports
-                      : "",
-                    preferredMusicgenres: user.preferredMusicgenres
-                      ? user.preferredMusicgenres
-                      : "",
-                    preferredMovieOrTVshows: user.preferredMovieOrTVshows
-                      ? user.preferredMovieOrTVshows
-                      : "",
-                  }}
+                  innerRef={formikRef}
+                  initialValues={getFormikInitialUserSchema(user)}
                   initialErrors={{}}
                   validationSchema={getSchema(selectedTab)}
                   validateOnChange={true}
                   validateOnBlur={true}
-                  onSubmit={async (values, { resetForm }) => {
-                    setIsLoading(true);
-                    const uploadedResponse = await uploadImage();
-                    const imageUrl = uploadedResponse ? await getDownloadURL(uploadedResponse.ref) : values.avatar;
-                    if (!user.userId) {
-                      addUser({ ...values, avatar: imageUrl }, userId)
-                        .then(() => {
-                          refreshUser();
-                          setSelectedImage(null);
-                          setIsEditing(false);
-                          notify('SUCCESS', `Your profile have been updated`);
-                        })
-                        .catch((error) => {
-                          console.log("ERROR: ", error);
-                          setIsLoading(false);
-                          notify('ERROR', `Error: ${error}`);
-                        });
-                    } else {
-                      setIsLoading(true);
-                      updateUser({ ...values, avatar: imageUrl }, userId)
-                        .then(() => {
-                          refreshUser();
-                          notify('SUCCESS', `Your profile have been updated`);
-                          setIsLoading(false);
-                          setSelectedImage(null);
-                          setIsEditing(false);
-                        })
-                        .catch((error) => {
-                          console.log("ERROR: ", error);
-                          notify('ERROR', `Error: ${error}`);
-                          setIsLoading(false);
-                        });
-                    }
-                    resetForm();
-                  }}
+                  onSubmit={async (values, { resetForm }) =>
+                    await submitForm(values, resetForm)
+                  }
                 >
-                  {({ errors, values }) => {
-                    if (values.maritalStatus === "Married")
-                      setIsUserMarried(true);
-                    else setIsUserMarried(false);
-                    return (
-                      <Form className="flex xxs:w-full md:w-4/5 xxs:flex-col md:flex-row">
-                        <div className="flex w-32 min-h-32 h-auto md:mx-10 xxs:mb-8">
-                          <ImageUpload
-                            selectedImage={selectedImage}
-                            setSelectedImage={setSelectedImage}
-                            url={user.avatar ? user.avatar : null}
-                            isEditing={isEditing}
-                          />
-                        </div>
-                        <div className="flex flex-col justify-start items-start flex-1 w-full">
-                          <div className="w-full">
-                            {renderUserDetails(user, selectedTab, isEditing)}
-                          </div>
-                          {isEditing && (
-                            <div className="flex justify-between w-full">
-                              <SubmitButton
-                                className={classNames(
-                                  "py-3 w-1/2 mr-2",
-                                  `${
-                                    !isSaveDisabled(values, errors, selectedTab)
-                                      ? "bg-textSecondary text-white "
-                                      : "bg-disableColor text-textGray"
-                                  }`
-                                )}
-                                label={"SAVE & UPDATE"}
-                                disabled={isSaveDisabled(
-                                  values,
-                                  errors,
-                                  selectedTab
-                                )}
-                              />
-                              <button
-                                className={classNames(
-                                  "flex items-center justify-center text-textSecondary py-3 border-2 border-textSecondary w-1/2"
-                                )}
-                                onClick={() => setIsEditing(false)}
-                              >
-                                <span
-                                  className={classNames(
-                                    "text-[16px] font-semibold"
-                                  )}
-                                >
-                                  CANCEL
-                                </span>
-                              </button>
-                            </div>
+                  {({ values, errors, handleReset }) => (
+                    <Form className="flex xxs:w-full h-auto md:w-4/5 xxs:flex-col lg:flex-row">
+                      <div className="w-40 h-32 md:mx-10 xxs:mb-24">
+                        <ImageUpload
+                          selectedImage={selectedImage}
+                          setSelectedImage={setSelectedImage}
+                          url={user.avatar ? user.avatar : null}
+                          isEditing={isEditing}
+                        />
+                      </div>
+                      <div className="flex flex-col justify-start items-start flex-1 w-full">
+                        <div className="w-full">
+                          {renderUserDetails(
+                            user,
+                            selectedTab,
+                            isEditing,
+                            handleMaritalStatusChange
                           )}
-                          {isEditing && (<div className="flex justify-between w-full mt-10">* Mandatory field</div>)}
                         </div>
-                      </Form>
-                    );
-                  }}
+                        {isEditing && (
+                          <div className="flex justify-between w-full">
+                            <SubmitButton
+                              className={classNames(
+                                "py-3 w-1/2 mr-2",
+                                `${
+                                  !isSaveDisabled(
+                                    values,
+                                    errors,
+                                    selectedTab
+                                  )
+                                    ? "bg-textSecondary text-white "
+                                    : "bg-disableColor text-textGray"
+                                }`
+                              )}
+                              label={"SAVE & UPDATE"}
+                              disabled={isSaveDisabled(
+                                values,
+                                errors,
+                                selectedTab
+                              )}
+                            />
+                            <button
+                              className={classNames(
+                                "flex items-center justify-center text-textSecondary py-3 border-2 border-textSecondary w-1/2"
+                              )}
+                              onClick={() => {
+                                setIsEditing(false);
+                                setSelectedImage(null);
+                                toggleShowSpuseDetails(isUserMarried);
+                                handleReset();
+                              }}
+                            >
+                              <span
+                                className={classNames(
+                                  "text-[16px] font-semibold"
+                                )}
+                              >
+                                CANCEL
+                              </span>
+                            </button>
+                          </div>
+                        )}
+                        {isEditing && (
+                          <div className="flex justify-between w-full mt-10">
+                            * Mandatory field
+                          </div>
+                        )}
+                      </div>
+                    </Form>
+                  )}
                 </Formik>
               )}
             </div>

@@ -80,11 +80,11 @@ export const getValueFromDate = (dateStr, requireValue) => {
   var dateSplit = dateStr.split("-");
   switch (requireValue) {
     case "D":
-      return parseInt(dateSplit[2]);
+      return dateSplit[2];
     case "M":
-      return parseInt(dateSplit[1]);
+      return dateSplit[1];
     case "Y":
-      return parseInt(dateSplit[0]);
+      return dateSplit[0];
     default:
       return null;
   }
@@ -117,4 +117,50 @@ export const generateUserRequest = (user) => {
     preferredMusicgenres: user.preferredMovieOrTVshows,
     preferredMovieOrTVshows: user.preferredMovieOrTVshows,
   };
+};
+
+export const getFormikInitialUserSchema = (user) => {
+  return {
+    salutation: user.salutation ? user.salutation : "",
+    firstName: user.fname ? user.fname : "",
+    lastName: user.lname ? user.lname : "",
+    email: user.email ? user.email : "",
+    mobileNo: user.mobile ? user.mobile : "",
+    address: user.address ? user.address : "",
+    country: user.country ? user.country : "",
+    postalCode: user.postalCode ? user.postalCode : "",
+    nationality: user.nationality ? user.nationality : "",
+    birthDate: user.dob ? getValueFromDate(user.dob, "D") : "",
+    birthMonth: user.dob ? getValueFromDate(user.dob, "M") : "",
+    birthYear: user.dob ? getValueFromDate(user.dob, "Y") : "",
+    gender: user.gender ? user.gender : "",
+    maritalStatus: user.maritalStatus ? user.maritalStatus : "",
+    spouseSalutation: user.spouseSalutation
+      ? user.spouseSalutation
+      : "",
+    spouseFName: user.spouseFName ? user.spouseFName : "",
+    spouseLName: user.spouseLName ? user.spouseLName : "",
+    hobbiesAndInterests: user.hobbiesAndInterests
+      ? user.hobbiesAndInterests
+      : "",
+    favoriteSports: user.favoriteSports
+      ? user.favoriteSports
+      : "",
+    preferredMusicgenres: user.preferredMusicgenres
+      ? user.preferredMusicgenres
+      : "",
+    preferredMovieOrTVshows: user.preferredMovieOrTVshows
+      ? user.preferredMovieOrTVshows
+      : "",
+  }
+}
+
+export const getBirthYears = (startYear = 1900) => {
+  let currentYear = new Date().getFullYear() - 17,
+    years = [];
+  while (startYear < currentYear) {
+    years.push({ value: startYear + 1, label: startYear + 1 });
+    startYear++;
+  }
+  return years;
 };
