@@ -52,7 +52,7 @@ const Signin = () => {
       content={
         <div
           className={classNames(
-            "flex flex-col items-center justify-center text-textPrimary w-screen h-full"
+            "flex flex-col items-center justify-center text-textPrimary w-screen h-auto"
           )}
         >
           <div className="w-2/3">
@@ -171,7 +171,7 @@ const Signin = () => {
                         <div className="flex items-center xxs:w-full lg:w-4/5">
                           <SubmitButton
                             className={classNames(
-                              "py-3 xxs:w-full lg:w-[165px] mt-[24px]",
+                              "py-3 xxs:w-full lg:w-[165px] mt-[24px] xxs:text-[16px] md:text-lg",
                               `${
                                 !isSignInDisabled(values, errors)
                                   ? "bg-primary text-white "
