@@ -62,7 +62,7 @@ const Signup = () => {
             "flex flex-col items-center justify-center text-textPrimary w-screen h-full"
           )}
         >
-          <div className="w-1/2">
+          <div className="w-2/3">
             <Formik
               initialValues={{ userId: "", password: "", confirmPassword: "" }}
               initialErrors={
@@ -102,7 +102,7 @@ const Signup = () => {
             >
               {({ errors, values }) => (
                 <Form className="flex flex-col justify-center items-center">
-                  <div className="xxs:text-4xl md:text-5xl mb-5 font-light text-center">
+                  <div className="flex flex-col md:flex-row xxs:text-4xl md:text-5xl mb-5 font-light text-center">
                     <span>Welcome to </span>
                     <span className="font-bold">myApp</span>
                   </div>

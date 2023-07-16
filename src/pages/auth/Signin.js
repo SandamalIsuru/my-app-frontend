@@ -55,7 +55,7 @@ const Signin = () => {
             "flex flex-col items-center justify-center text-textPrimary w-screen h-full"
           )}
         >
-          <div className="w-1/2">
+          <div className="w-2/3">
             <Formik
               initialValues={{ userId: "", password: "" }}
               initialErrors={
@@ -91,11 +91,11 @@ const Signin = () => {
             >
               {({ errors, values }) => (
                 <Form className="flex flex-col justify-center items-center">
-                  <div className="xxs:text-4xl md:text-5xl mb-5 font-light text-center">
+                  <div className="flex flex-col md:flex-row xxs:text-4xl md:text-5xl mb-5 font-light text-center">
                     <span>Welcome to </span>
                     <span className="font-bold">myApp</span>
                   </div>
-                  <Divider className="bg-dividerColor w-1/5 h-1" />
+                  <Divider className="bg-dividerColor w-1/2 md:w-1/5 h-1" />
                   <div className="flex flex-col form-group w-full lg:items-end mt-7">
                     <div className="lg:w-2/3">
                       <div className="flex xxs:flex-col lg:flex-row justify-center items-center mb-2">
