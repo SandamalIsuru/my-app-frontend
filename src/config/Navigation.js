@@ -4,7 +4,7 @@ import * as AiIcons from "react-icons/ai";
 export const SIDEBAR_NAVIGATIONS = [
   {
     title: "My Contacts",
-    path: "/my-contacts",
+    path: "/",
     icon: <AiIcons.AiFillContacts />,
     cName: "nav-text",
   },
