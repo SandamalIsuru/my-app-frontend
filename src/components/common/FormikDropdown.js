@@ -18,7 +18,7 @@ const FormikDropdown = ({
       borderWidth: 2,
       borderColor: isError ? "var(--theme-error-red)" : "",
       ...base,
-      backgroundColor: "transparent",
+      backgroundColor: "var(--theme-dropdown-gray05)",
       borderRadius: 0,
     }),
     indicatorSeparator: (base) => ({

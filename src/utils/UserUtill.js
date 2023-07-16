@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import {
+  MARRIED,
   USER,
   USER_ATTRIBUTES,
   USER_AUTH,
@@ -108,10 +109,10 @@ export const generateUserRequest = (user) => {
         : "",
     gender: user.gender,
     maritalStatus: user.maritalStatus,
-    spouseFName: user.maritalStatus === " Married" ? user.spouseFName : "",
-    spouseLName: user.maritalStatus === " Married" ? user.spouseLName : "",
+    spouseFName: user.maritalStatus === MARRIED ? user.spouseFName : "",
+    spouseLName: user.maritalStatus === MARRIED ? user.spouseLName : "",
     spouseSalutation:
-      user.maritalStatus === " Married" ? user.spouseSalutation : "",
+      user.maritalStatus === MARRIED ? user.spouseSalutation : "",
     hobbiesAndInterests: user.hobbiesAndInterests,
     favoriteSports: user.favoriteSports,
     preferredMusicgenres: user.preferredMovieOrTVshows,

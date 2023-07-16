@@ -17,7 +17,7 @@ const TextInput = ({
   return (
     <div
       className={classNames(
-        `flex flex-row items-center justify-center h-12 border-2 text-[14px] ${
+        `flex flex-row items-center justify-center h-12 border-2 text-[14px] bg-dropdownGray05 ${
           error ? "border-errorRed" : "border-hoverBackground"
         }`,
         className

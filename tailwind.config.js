@@ -31,6 +31,7 @@ module.exports = {
         hoverBackground: 'var(--theme-hover-background)',
         textBlue: 'var(--theme-text-blue)',
         dropdownGray: 'var(--theme-dropdown-gray)',
+        dropdownGray05: 'var(--theme-dropdown-gray05)',
         whiteSmoke: 'var(--theme-white-smoke)',
         borderColor: 'var(--theme-border-color)',
       },

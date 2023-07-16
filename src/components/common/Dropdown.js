@@ -19,7 +19,7 @@ const Dropdown = ({ className, styles = {}, options, value, onChange }) => {
     control: (baseStyles) => ({
       ...baseStyles,
       borderWidth: 0,
-      backgroundColor: "var(--theme-dropdown-gray)",
+      backgroundColor: "var(--theme-dropdown-gray05)",
       boxShadow: "none",
       borderRadius: 0,
       ...styles.control,

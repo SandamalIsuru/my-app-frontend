@@ -69,14 +69,18 @@ export const SALUTATIONS = [
   },
 ];
 
+export const MARRIED = "Married";
+export const SINGLE = "Single";
+
+
 export const MARITAL_STATUS = [
   {
-    label: "Single",
-    value: "Single",
+    label: SINGLE,
+    value: SINGLE,
   },
   {
-    label: "Married",
-    value: "Married",
+    label: MARRIED,
+    value: MARRIED,
   },
 ];
 
