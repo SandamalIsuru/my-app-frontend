@@ -16,6 +16,7 @@ import {
 import {
   GENDER,
   MARITAL_STATUS,
+  MARRIED,
   MOBILE_NUMBER_REG_EXP,
   myProfileTabs,
   SALUTATIONS,
@@ -327,7 +328,7 @@ const MyProfile = () => {
     setIsUserLoaded(false);
     getUser(userId)
       .then((response) => {
-        const userMarried = response[0].maritalStatus === "Married";
+        const userMarried = response[0].maritalStatus === MARRIED;
         setUser(response[0]);
         setIsUserMarried(userMarried);
         setShowSpuseDetails(userMarried);
@@ -391,7 +392,7 @@ const MyProfile = () => {
 
   const handleMaritalStatusChange = (event) => {
     const { value } = event;
-    setShowSpuseDetails(value === "Married");
+    setShowSpuseDetails(value === MARRIED);
   };
 
   const submitForm = async (values, resetForm) => {
@@ -475,7 +476,7 @@ const MyProfile = () => {
             </div>
           </div>
           <div className="flex justify-center w-full mt-10">
-            <div className="flex flex-col w-1/4 pr-6">
+            <div className="flex flex-col xxs:w-1/3 md:w-1/4 pr-6">
               {myProfileTabs.map((tab, index) => {
                 if (!showSpuseDetails && tab === "Spouse Details") return null;
                 return (
@@ -494,7 +495,7 @@ const MyProfile = () => {
                 );
               })}
             </div>
-            <div className="flex xxs:flex-col md:flex-row w-3/4">
+            <div className="flex xxs:flex-col md:flex-row xxs:w-2/3 md:w-3/4">
               {isUserLoaded && (
                 <Formik
                   innerRef={formikRef}
@@ -508,7 +509,7 @@ const MyProfile = () => {
                   }
                 >
                   {({ values, errors, handleReset }) => (
-                    <Form className="flex xxs:w-full h-auto md:w-4/5 xxs:flex-col lg:flex-row">
+                    <Form className="flex xxs:w-full h-auto lg:w-4/5 xxs:flex-col lg:flex-row">
                       <div className="w-40 h-32 md:mx-10 xxs:mb-24">
                         <ImageUpload
                           selectedImage={selectedImage}
