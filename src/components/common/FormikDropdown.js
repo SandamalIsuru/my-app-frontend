@@ -11,6 +11,7 @@ const FormikDropdown = ({
   defaultValue = null,
   isDisabled = false,
   isError = false,
+  handleChange = () => {},
 }) => {
   const customStyles = {
     container: (base) => ({
@@ -36,7 +37,7 @@ const FormikDropdown = ({
       backgroundColor: "transparent",
       marginTop: "3px",
       boxShadow: "none",
-      paddingLeft: 10
+      paddingLeft: 10,
     }),
     valueContainer: (baseStyles) => ({
       ...baseStyles,
@@ -78,7 +79,10 @@ const FormikDropdown = ({
       value={
         options ? options.find((option) => option.value === field.value) : ""
       }
-      onChange={(option) => form.setFieldValue(field.name, option.value)}
+      onChange={(option) => {
+        form.setFieldValue(field.name, option.value);
+        handleChange(option);
+      }}
       placeholder={placeholder}
       defaultValue={defaultValue}
       isDisabled={isDisabled}

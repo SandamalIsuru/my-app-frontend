@@ -10,6 +10,7 @@ const ValidatedDropdown = ({
   options = [],
   defaultValue = null,
   isDisabled = false,
+  handleChange = () => {},
 }) => {
   return (
     <div className={classNames("flex flex-col w-full", className)}>
@@ -31,6 +32,7 @@ const ValidatedDropdown = ({
               defaultValue={defaultValue}
               isDisabled={isDisabled}
               isError={form.touched[field.name] && form.errors[field.name]}
+              handleChange={handleChange}
             />
           )}
         </Field>
