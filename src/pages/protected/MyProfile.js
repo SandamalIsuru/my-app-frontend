@@ -322,8 +322,6 @@ const MyProfile = () => {
 
   const userId = getUserAttributeFromLocalStorage(USER_ATTRIBUTES.USER_ID);
 
-  console.log("=======================width ", width);
-
   useEffect(() => {
     setIsEditing(edit ? true : false);
   }, [edit]);
@@ -486,26 +484,7 @@ const MyProfile = () => {
             </div>
           </div>
           <div className="flex justify-center w-full mt-10">
-            <div className="flex flex-col xxs:w-1/3 md:w-1/4 pr-6">
-              {myProfileTabs.map((tab, index) => {
-                if (!showSpuseDetails && tab === "Spouse Details") return null;
-                return (
-                  <div
-                    key={`tab-${index}`}
-                    className={classNames(
-                      "border-textPrimary py-2 cursor-pointer xxs:text-[15px] md:text-lg",
-                      `${index === 0 && "border-t-[1px]"}`,
-                      `${selectedTab === index && "border-b-[5px] font-bold"}`,
-                      `${selectedTab !== index && "border-b-[1px]"}`
-                    )}
-                    onClick={() => setSelectedTab(index)}
-                  >
-                    {tab}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex xxs:flex-col md:flex-row xxs:w-2/3 md:w-3/4">
+            <div className="flex xxs:flex-col md:flex-row w-full">
               {isUserLoaded && (
                 <Formik
                   innerRef={formikRef}
@@ -519,16 +498,42 @@ const MyProfile = () => {
                   }
                 >
                   {({ values, errors, handleReset }) => (
-                    <Form className="flex xxs:w-full h-auto lg:w-4/5 xxs:flex-col lg:flex-row">
-                      <div className="xxs:w-full md:w-40 h-32 md:mx-10 xxs:mb-24">
-                        <ImageUpload
-                          selectedImage={selectedImage}
-                          setSelectedImage={setSelectedImage}
-                          url={user.avatar ? user.avatar : null}
-                          isEditing={isEditing}
-                        />
+                    <Form className="flex w-full h-auto xxs:flex-col lg:flex-row">
+                      <div className="flex lg:w-2/5">
+                        <div className="flex flex-col sm:w-1/2 pr-6">
+                          {myProfileTabs.map((tab, index) => {
+                            if (!showSpuseDetails && tab === "Spouse Details")
+                              return null;
+                            return (
+                              <div
+                                key={`tab-${index}`}
+                                className={classNames(
+                                  "border-textPrimary py-2 cursor-pointer xxs:text-[15px] md:text-lg",
+                                  `${index === 0 && "border-t-[1px]"}`,
+                                  `${
+                                    selectedTab === index &&
+                                    "border-b-[5px] font-bold"
+                                  }`,
+                                  `${selectedTab !== index && "border-b-[1px]"}`
+                                )}
+                                onClick={() => setSelectedTab(index)}
+                              >
+                                {tab}
+                              </div>
+                            );
+                          })}
+                        </div>
+                        <div className="flex items-center justify-center xxs:w-full lg:w-1/2 h-32 xxs:mt-6 sm:mt-1">
+                          <ImageUpload
+                            selectedImage={selectedImage}
+                            setSelectedImage={setSelectedImage}
+                            url={user.avatar ? user.avatar : null}
+                            isEditing={isEditing}
+                          />
+                        </div>
                       </div>
-                      <div className="flex flex-col justify-start items-start flex-1 w-full">
+
+                      <div className="flex flex-col xxs:mt-8 lg:mt-[0px] justify-start items-start flex-1 lg:w-3/5">
                         <div className="w-full">
                           {renderUserDetails(
                             user,
