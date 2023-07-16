@@ -101,7 +101,7 @@ const months = [...Array(12).keys()].map((element) => {
 const renderBasicDetails = (user, isEditing) => {
   return (
     <div className="w-full">
-      <label className="text-[14px] font-bold">Salutation *</label>
+      <label className="text-[15px] font-bold">Salutation *</label>
       {isEditing ? (
         <ValidatedDropdown
           fieldName={"salutation"}
@@ -111,19 +111,19 @@ const renderBasicDetails = (user, isEditing) => {
       ) : (
         <LabelText value={user.salutation} />
       )}
-      <label className="text-[14px] font-bold">First Name *</label>
+      <label className="text-[15px] font-bold">First Name *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"firstName"} />
       ) : (
         <LabelText value={user.fname} />
       )}
-      <label className="text-[14px] font-bold">Last Name *</label>
+      <label className="text-[15px] font-bold">Last Name *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"lastName"} />
       ) : (
         <LabelText value={user.lname} />
       )}
-      <label className="text-[14px] font-bold">Email *</label>
+      <label className="text-[15px] font-bold">Email *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"email"} />
       ) : (
@@ -140,39 +140,39 @@ const renderAdditionalDetails = (
 ) => {
   return (
     <div>
-      <label className="text-[14px] font-bold">Mobile Number *</label>
+      <label className="text-[15px] font-bold">Mobile Number *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"mobileNo"} />
       ) : (
         <LabelText value={user.mobile} />
       )}
-      <label className="text-[14px] font-bold">Home Address *</label>
+      <label className="text-[15px] font-bold">Home Address *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"address"} />
       ) : (
         <LabelText value={user.address} />
       )}
-      <label className="text-[14px] font-bold">Country *</label>
+      <label className="text-[15px] font-bold">Country *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"country"} />
       ) : (
         <LabelText value={user.country} />
       )}
-      <label className="text-[14px] font-bold">Postal Code *</label>
+      <label className="text-[15px] font-bold">Postal Code *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"postalCode"} />
       ) : (
         <LabelText value={user.postalCode} />
       )}
-      <label className="text-[14px] font-bold">Nationality *</label>
+      <label className="text-[15px] font-bold">Nationality *</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"nationality"} />
       ) : (
         <LabelText value={user.nationality} />
       )}
-      <label className="text-[14px] font-bold">Date of Birth</label>
+      <label className="text-[15px] font-bold">Date of Birth</label>
       {isEditing ? (
-        <div className="flex xxs:flex-col sm:justify-between">
+        <div className="flex xxs:flex-col sm:flex-row sm:justify-between">
           <ValidatedDropdown
             fieldName={"birthMonth"}
             options={months}
@@ -195,7 +195,7 @@ const renderAdditionalDetails = (
       ) : (
         <LabelText value={user.dob} />
       )}
-      <label className="text-[14px] font-bold">Gender</label>
+      <label className="text-[15px] font-bold">Gender</label>
       {isEditing ? (
         <ValidatedDropdown
           fieldName={"gender"}
@@ -205,7 +205,7 @@ const renderAdditionalDetails = (
       ) : (
         <LabelText value={user.gender} />
       )}
-      <label className="text-[14px] font-bold">Marital Status</label>
+      <label className="text-[15px] font-bold">Marital Status</label>
       {isEditing ? (
         <ValidatedDropdown
           fieldName={"maritalStatus"}
@@ -223,7 +223,7 @@ const renderAdditionalDetails = (
 const renderSpouseDetails = (user, isEditing) => {
   return (
     <div className="w-full">
-      <label className="text-[14px] font-bold">Salutation</label>
+      <label className="text-[15px] font-bold">Salutation</label>
       {isEditing ? (
         <ValidatedDropdown
           fieldName={"spouseSalutation"}
@@ -233,13 +233,13 @@ const renderSpouseDetails = (user, isEditing) => {
       ) : (
         <LabelText value={user.spouseSalutation} />
       )}
-      <label className="text-[14px] font-bold">First Name</label>
+      <label className="text-[15px] font-bold">First Name</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"spouseFName"} />
       ) : (
         <LabelText value={user.spouseFName} />
       )}
-      <label className="text-[14px] font-bold">Last Name</label>
+      <label className="text-[15px] font-bold">Last Name</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"spouseLName"} />
       ) : (
@@ -252,25 +252,25 @@ const renderSpouseDetails = (user, isEditing) => {
 const renderPersonalPreferences = (user, isEditing) => {
   return (
     <div className="w-full">
-      <label className="text-[14px] font-bold">Hobbies and Interests</label>
+      <label className="text-[15px] font-bold">Hobbies and Interests</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"hobbiesAndInterests"} />
       ) : (
         <LabelText value={user.hobbiesAndInterests} />
       )}
-      <label className="text-[14px] font-bold">Favorite Sport(s)</label>
+      <label className="text-[15px] font-bold">Favorite Sport(s)</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"favoriteSports"} />
       ) : (
         <LabelText value={user.favoriteSports} />
       )}
-      <label className="text-[14px] font-bold">Preferred Music Genre(s)</label>
+      <label className="text-[15px] font-bold">Preferred Music Genre(s)</label>
       {isEditing ? (
         <ValidatedTextInput fieldName={"preferredMusicgenres"} />
       ) : (
         <LabelText value={user.preferredMusicgenres} />
       )}
-      <label className="text-[14px] font-bold">
+      <label className="text-[15px] font-bold">
         {" "}
         Preferred movie/TV show(s)
       </label>
