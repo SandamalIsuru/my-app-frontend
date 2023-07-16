@@ -34,9 +34,6 @@ const Signup = () => {
   const [isError, setIsError] = useState(false);
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [errorText, setErrorText] = useState("");
-  // const [userId, setErrorText] = useState("");
-  // const [password, setErrorText] = useState("");
-  // const [confirmPassword, setErrorText] = useState("");
 
   const isSignupDisabled = (values, errors) => {
     return (
@@ -45,7 +42,7 @@ const Signup = () => {
       values.confirmPassword === "" ||
       errors.userId ||
       errors.password ||
-      errors.confirmPassword === ""
+      errors.confirmPassword
     );
   };
 

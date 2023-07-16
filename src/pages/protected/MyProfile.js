@@ -543,7 +543,7 @@ const MyProfile = () => {
                           )}
                         </div>
                         {isEditing && (
-                          <div className="flex justify-between w-full lg:w-3/4">
+                          <div className="flex justify-between w-full lg:w-3/4 mt-6">
                             <SubmitButton
                               className={classNames(
                                 "py-3 w-1/2 mr-2",
@@ -562,7 +562,7 @@ const MyProfile = () => {
                             />
                             <button
                               className={classNames(
-                                "flex items-center justify-center text-textSecondary py-3 border-2 border-textSecondary w-1/2"
+                                "flex items-center justify-center text-textSecondary py-3 border-2 border-textSecondary w-1/2 xxs:text-[16px] md:text-lg"
                               )}
                               onClick={() => {
                                 setIsEditing(false);
@@ -573,7 +573,7 @@ const MyProfile = () => {
                             >
                               <div
                                 className={classNames(
-                                  "xxs:text-[11px] md:text-lg text-center font-semibold"
+                                  "text-center font-semibold"
                                 )}
                               >
                                 CANCEL
