@@ -32,14 +32,23 @@ Following features have been intodused under this platform.
 - create .env file and add following env variables in .env file. 
 
     `REACT_APP_API`: <UPDATE_ME>
+
     `REACT_APP_RANDOM_USER_EP`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_API_KEY`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_AUTH_DOMAIN`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_PROJECT_ID`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_STORAGE_BUCKET`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_MESSAGING_SENDER_ID`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_APP_ID`: <UPDATE_ME>
+
     `REACT_APP_FIREBASE_MEASUREMENT_ID`: <UPDATE_ME>
+
 
 - Run fullowing command to run the project in locally
 
