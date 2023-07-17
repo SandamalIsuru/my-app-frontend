@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# my-app-frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
 
-## Available Scripts
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Folder Structure](#folder-structure)
 
-In the project directory, you can run:
+## Introduction
 
-### `npm start`
+With this platform, an user can register/login with the My App platform and see his/her contacts in a paginated view. Also user can maintain a profile by updating their details.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Following features have been intodused under this platform.
 
-### `npm test`
+- User Authentication (SIgnin, Signup)
+- Listing all the contact and user can filter users by Gender or Country
+- Updating user profile data
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+- Clone the repository: `git clone https://github.com/SandamalIsuru/my-app-frontend.git`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Navigate to the project directory: `cd my-app-frontend`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Run fullowing command to install necessary npm modules
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    `yarn install`
 
-### `npm run eject`
+- create .env file and add following env variables in .env file. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    `REACT_APP_API`: <UPDATE_ME>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    `REACT_APP_RANDOM_USER_EP`: <UPDATE_ME>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    `REACT_APP_FIREBASE_API_KEY`: <UPDATE_ME>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    `REACT_APP_FIREBASE_AUTH_DOMAIN`: <UPDATE_ME>
 
-## Learn More
+    `REACT_APP_FIREBASE_PROJECT_ID`: <UPDATE_ME>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    `REACT_APP_FIREBASE_STORAGE_BUCKET`: <UPDATE_ME>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    `REACT_APP_FIREBASE_MESSAGING_SENDER_ID`: <UPDATE_ME>
 
-### Code Splitting
+    `REACT_APP_FIREBASE_APP_ID`: <UPDATE_ME>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    `REACT_APP_FIREBASE_MEASUREMENT_ID`: <UPDATE_ME>
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Run fullowing command to run the project in locally
 
-### Making a Progressive Web App
+    `yarn start`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Folder Structure
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `/src`: Contains the source code files.
+- `/public`: Contains the public assets and the root HTML file.
+- `/src/components`: Contains reusable components.
+- `/src/pages`: Contains different pages of the application.
+- `/src/hooks`: Contains custom hooks of the application.
+- `/src/config`: Contains configuration files of the application.
+- `/src/utils`: Contains util functions used in components and pages.
